@@ -64,7 +64,7 @@ jobs:
             npm run lint
             npm run build
       - destroy_environment
-          when: on_fail
+        when: on_fail
       - save_cache:
           paths: [backend/node_modules]
           key: backend-build
