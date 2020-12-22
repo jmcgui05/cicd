@@ -46,6 +46,9 @@ jobs:
             npm install
             npm run lint
             npm run build
+      - run:
+          destroy_environment
+          when: on_fail
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-build
@@ -63,8 +66,9 @@ jobs:
             npm install
             npm run lint
             npm run build
-      - destroy_environment
-        when: on_fail
+      - run:
+          destroy_environment
+          when: on_fail
       - save_cache:
           paths: [backend/node_modules]
           key: backend-build
