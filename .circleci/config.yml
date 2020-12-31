@@ -84,7 +84,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: frontend-build
+          keys: frontend-build
       - run:
           name: Run front end tests
           command: |
@@ -99,7 +99,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: backend-build
+          keys: backend-build
       - run:
           name: Run back end tests
           command: |
