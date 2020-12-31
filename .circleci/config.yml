@@ -48,9 +48,9 @@ jobs:
             npm install
             npm run build
             echo "..... frontend ....."
-            ls frontend
+            ls 
             echo "..... dist ....."
-            ls frontend/dist
+            ls dist
             
       - save_cache:
           paths: 
