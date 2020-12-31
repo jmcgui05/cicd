@@ -45,6 +45,7 @@ jobs:
           name: Build front-end
           command: |
             cd frontend
+            rm -rf node_modules/
             npm install
             npm run build
             echo "..... frontend ....."
