@@ -47,9 +47,9 @@ jobs:
             cd frontend
             npm install
             npm run build
-            echo &&&&&&& frontend &&&&&&&&
+            echo "..... frontend ....."
             ls frontend
-            echo &&&&&&& dist &&&&&&&&
+            echo "..... dist ....."
             ls frontend/dist
             
       - save_cache:
