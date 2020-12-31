@@ -47,6 +47,11 @@ jobs:
             cd frontend
             npm install
             npm run build
+            echo &&&&&&& frontend &&&&&&&&
+            ls frontend
+            echo &&&&&&& dist &&&&&&&&
+            ls frontend/dist
+            
       - save_cache:
           paths: 
             - frontend/node_modules
@@ -83,9 +88,7 @@ jobs:
       - run:
           name: Run front end tests
           command: |
-            echo ???????????????????????????
-            ls
-            echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~ # below shows the node_modules but no dist
             ls frontend/
             cd frontend
             npm run test
