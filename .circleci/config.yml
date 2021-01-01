@@ -40,7 +40,7 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
-            - frontend-build
+            - v2-frontend-build
       - run:
           name: Build front-end
           command: |
@@ -57,7 +57,7 @@ jobs:
           paths: 
             - frontend/node_modules
             - frontend/dist
-          key: frontend-build
+          key: v2-frontend-build
 
   build-backend:
     docker:
@@ -66,7 +66,7 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
-            - backend-build
+            - v2-backend-build
       - run:
           name: Back-end build
           command: |
@@ -77,7 +77,7 @@ jobs:
           paths: 
             - backend/node_modules
             - backend/dist
-          key: backend-build
+          key: v2-backend-build
 
   test-frontend:
     docker:
@@ -85,15 +85,15 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: frontend-build
+          keys: v2-frontend-build
       - run:
           name: Run front end tests
           command: |
             echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~ # below shows the node_modules but no dist
             ls frontend/
             cd frontend
-            npm install
-            npm run build
+            # npm install
+            # npm run build
             npm run test
                 
   test-backend:
@@ -102,13 +102,13 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: backend-build
+          keys: v2-backend-build
       - run:
           name: Run back end tests
           command: |
             cd backend
-            npm install
-            npm run build
+            # npm install
+            # npm run build
             npm run test
             
   # scan-frontend:
