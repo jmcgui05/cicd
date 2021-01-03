@@ -13,8 +13,11 @@ commands:
           name: Destroy environments
           when: on_fail
           command: |
-            # Your code here
-            exit 1
+            # Delete front end stack
+            aws cloudformation delete-stack --stack-name udacity-frontend-${CIRCLE_WORKFLOW_ID}
+            # Delete back end stack
+            aws cloudformation delete-stack --stack-name udacity-backend-${CIRCLE_WORKFLOW_ID}
+
       # - slack/notify:
       #     custom: |
       #       {
@@ -161,7 +164,6 @@ jobs:
               --template-file .circleci/files/backend.yml \
               --stack-name udacity-backend-${CIRCLE_WORKFLOW_ID} \
               --parameter-overrides ID=${CIRCLE_WORKFLOW_ID}
-              exit 1
       - run:
           name: Ensure front-end infrastructure exist
           command: |
@@ -169,20 +171,22 @@ jobs:
               --template-file .circleci/files/frontend.yml \
               --stack-name udacity-frontend-${CIRCLE_WORKFLOW_ID} \
               --parameter-overrides ID=${CIRCLE_WORKFLOW_ID}
-              exit 1
       - run:
           name: Add back-end ip to ansible inventory
           command: |
             aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
             --output text >> project/.circleci/ansible/inventory.txt \
+            echo "111111111111111"
             cat project/.circleci/ansible/inventory.txt
+            echo "2222222222222222"
             exit 1
       - persist_to_workspace:
           root: ~/
           paths:
             - project/.circleci/ansible/inventory.txt
-      # Here's where you will add some code to rollback on failure      
+      # Here's where you will add some code to rollback on failure  
+      - destroy-environment     
 
   # configure-infrastructure:
   #   docker:
