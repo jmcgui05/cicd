@@ -75,21 +75,7 @@ jobs:
             ls dist
 
       - slack/notify:
-          custom: |
-            {
-              "blocks": [
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "plain_text",
-                      "text": "*This is a text notification*",
-                      "emoji": true
-                    }
-                  ]
-                }
-              ]
-            }
+          template: basic_fail_1
           event: fail
             
       - save_cache:
@@ -346,6 +332,7 @@ workflows:
   default:
     jobs:
       - build-frontend
+          context: slack-secrets
       - build-backend
       - test-frontend:
           requires: [build-frontend]
