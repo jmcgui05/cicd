@@ -174,16 +174,24 @@ jobs:
       - run:
           name: Add back-end ip to ansible inventory
           command: |
-            echo "[all]" > inventory
-            aws ec2 describe-instances \
+            # echo "[all]" > inventory
+            # aws ec2 describe-instances \
+            # --query 'Reservations[*].Instances[*].PublicIpAddress' \
+            # --output text >> inventory
+            MyPublicIP=$(aws ec2 describe-instances \
+            --filter 'Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID}' \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --output text >> inventory
-      - persist_to_workspace: # tar utility is not present in this image but it is required. Please install it to have workflow workspace capability.
-          root: ~/
-          paths:
-            - project/.circleci/ansible/inventory.txt
+            --profile personal --region us-west-2 --output text)
+            # use memstash
+            curl -H "Content-Type: text/plain" -H "token: Udacity" \
+            --request PUT --data ${MyPublicIP} https://api.memstash.io/values/MyPublicIP
+
+      # - persist_to_workspace: # tar utility is not present in this image but it is required. Please install it to have workflow workspace capability.
+      #     root: ~/
+      #     paths:
+      #       - project/.circleci/ansible/inventory.txt
       # Here's where you will add some code to rollback on failure  
-      # - destroy-environment     
+      - destroy-environment     
 
   # configure-infrastructure:
   #   docker:
