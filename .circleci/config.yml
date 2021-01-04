@@ -194,7 +194,7 @@ jobs:
             echo "LS files"
             ls
             echo "check inv file"
-            cat .circleci/ansible/inventory.txt
+            cat inventory.txt
       - save_cache:
           paths: 
             - .circleci/ansible/
