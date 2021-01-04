@@ -179,7 +179,7 @@ jobs:
             # --query 'Reservations[*].Instances[*].PublicIpAddress' \
             # --output text >> inventory
             MyPublicIP=$(aws ec2 describe-instances \
-            --filters 'Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID}' \
+            --filters 'Name=tag:Name,Values=backend-*' \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
             --profile personal --region us-west-2 --output text)
             # use memstash
