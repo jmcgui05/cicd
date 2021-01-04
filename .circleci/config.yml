@@ -181,7 +181,7 @@ jobs:
             MyPublicIP=$(aws ec2 describe-instances \
             --filters 'Name=tag:Name,Values=backend-*' \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --profile personal --region us-west-2 --output text)
+            --region us-west-2 --output text)
             # use memstash
             curl -H "Content-Type: text/plain" -H "token: Udacity" \
             --request PUT --data ${MyPublicIP} https://api.memstash.io/values/MyPublicIP
