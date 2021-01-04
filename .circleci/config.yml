@@ -195,10 +195,10 @@ jobs:
             ls
             echo "check inv file"
             cat .circleci/ansible/inventory.txt
-          - save_cache:
-              paths: 
-                - .circleci/ansible/
-              key: v1-inventory
+      - save_cache:
+          paths: 
+            - .circleci/ansible/
+          key: v1-inventory
 
       # - persist_to_workspace: # tar utility is not present in this image but it is required. Please install it to have workflow workspace capability.
       #     root: ~/
