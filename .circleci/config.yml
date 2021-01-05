@@ -159,7 +159,7 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
-            - v1-inventory
+            - v2-inventory
       - run:
           name: Ensure back-end infrastructure exists
           command: |
@@ -198,7 +198,7 @@ jobs:
       - save_cache:
           paths: 
             - .circleci/ansible/
-          key: v1-inventory
+          key: v2-inventory
 
       # - persist_to_workspace: # tar utility is not present in this image but it is required. Please install it to have workflow workspace capability.
       #     root: ~/
@@ -215,7 +215,7 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
-            - v1-inventory
+            - v2-inventory
       # Add ssh keys with fingerprint
       - add_ssh_keys:
           fingerprints: ["02:e0:13:58:26:1c:1f:9a:ae:39:71:17:8d:45:03:47"]
