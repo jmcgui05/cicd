@@ -1,0 +1,12 @@
+- name: "update packages as poython is already installed"
+  shell: |
+    sudo apt update
+
+- name: "Install node" 
+  shell: |
+    sudo apt-get install nodejs -y
+    sudo apt-get install npm -y
+
+- name: "Install pm2"
+  shell: |
+    sudo npm install -g pm2
