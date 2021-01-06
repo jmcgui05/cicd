@@ -63,7 +63,7 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
-            - v2-frontend-build
+            - frontend-build-${CIRCLE_WORKFLOW_ID}
       - run:
           name: Build front-end
           command: |
@@ -76,7 +76,7 @@ jobs:
           paths: 
             - frontend/node_modules
             - frontend/dist
-          key: v2-frontend-build
+          key: frontend-build-${CIRCLE_WORKFLOW_ID}
 
   build-backend:
     docker:
@@ -85,7 +85,7 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
-            - v2-backend-build
+            - backend-build-${CIRCLE_WORKFLOW_ID}
       - run:
           name: Back-end build
           command: |
@@ -96,7 +96,7 @@ jobs:
           paths: 
             - backend/node_modules
             - backend/dist
-          key: v2-backend-build
+          key: backend-build-${CIRCLE_WORKFLOW_ID}
 
   test-frontend:
     docker:
@@ -104,7 +104,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: v2-frontend-build
+          keys: frontend-build-${CIRCLE_WORKFLOW_ID}
       - run:
           name: Run front end tests
           command: |
@@ -117,7 +117,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: v2-backend-build
+          keys: backend-build-${CIRCLE_WORKFLOW_ID}
       - run:
           name: Run back end tests
           command: |
@@ -132,7 +132,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: v2-frontend-build
+          keys: backend-build-${CIRCLE_WORKFLOW_ID}
       - run:
           name: run audit
           command: |
@@ -145,7 +145,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: v2-backend-build
+          keys: backend-build-${CIRCLE_WORKFLOW_ID}
       - run:
           name: run audit
           command: |
@@ -229,24 +229,31 @@ jobs:
           command: |
             cd .circleci/ansible/
             ansible-playbook -i ./inventory.txt configure-server.yml
-      # Here's where you will add some code to rollback on failure      
+      # Here's where you will add some code to rollback on failure 
+      - destroy-environment      
 
-  # run-migrations:
-  #   docker:
-  #     # Docker image here that supports NodeJS
-  #   steps:
-  #     # Checkout code from git
-  #     - run:
-  #         name: Run migrations
-  #         command: |
-  #           # Your code here
-  #           exit 1
-  #     - run:
-  #         name: Send migration results to memstash
-  #         command: |
-  #           # Your code here
-  #           exit 1
-  #    # Here's where you will add some code to rollback on failure      
+  run-migrations:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      # Checkout code from git
+      - checkout
+      - restore_cache:
+          keys: backend-build-${CIRCLE_WORKFLOW_ID}
+      - run:
+          name: Run migrations
+          command: |
+            cd backend
+            npm run migrations > migrationOutput.txt
+            cat migrationOutput.txt
+      - run:
+          name: Send migration results to memstash
+          command: |
+            cd backend
+            echo grep -c "has been executed successfully" migrationOutput.txt
+            RESULT=`grep -c "has been executed successfully" migrationOutput.txt`
+            echo $RESULT
+     # Here's where you will add some code to rollback on failure      
 
   # deploy-frontend:
   #   docker:
@@ -364,8 +371,8 @@ workflows:
       #         only: [test-feature-branch]
       - configure-infrastructure:
           requires: [deploy-infrastructure]
-      # - run-migrations:
-      #     requires: [configure-infrastructure]
+      - run-migrations:
+          requires: [configure-infrastructure]
       # - deploy-frontend:
       #     requires: [run-migrations]
       # - deploy-backend:
