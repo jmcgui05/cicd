@@ -92,8 +92,8 @@ jobs:
           command: |
             cd backend
             rm -rf node_modules/
-            npm install
             npm update
+            npm install
             npm run build
       - save_cache:
           paths: 
