@@ -70,7 +70,6 @@ jobs:
             cd frontend
             rm -rf node_modules/
             npm install
-            npm update
             npm run build
             
       - save_cache:
@@ -92,7 +91,6 @@ jobs:
           command: |
             cd backend
             rm -rf node_modules/
-            npm update
             npm install
             npm run build
       - save_cache:
@@ -140,6 +138,7 @@ jobs:
           name: run audit
           command: |
             cd frontend
+            npm update
             npm audit fix --audit-level=critical --force
 
   scan-backend:
@@ -153,6 +152,7 @@ jobs:
           name: run audit
           command: |
             cd backend
+            npm update
             npm audit fix --audit-level=critical --force
 
   deploy-infrastructure:
