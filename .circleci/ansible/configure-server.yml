@@ -2,6 +2,10 @@
 
 - name: "configuration play." 
   hosts: web
+  pre_tasks:
+    - name: "wait 60 seconds then move on"
+      wait_for:
+        timeout: 60
   user: ubuntu
   vars:
     - ansible_python_interpreter: /usr/bin/python3
@@ -24,7 +28,6 @@
 #
   # pre_tasks:
 # - name: "wait 60 seconds then move on"
-#   # Your code here
 #   wait_for:
 #     timeout: 60
 
