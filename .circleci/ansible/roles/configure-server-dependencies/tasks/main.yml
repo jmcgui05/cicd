@@ -1,15 +1,15 @@
 - name: "update packages as poython is already installed"
-  become: yes
+  # become: yes
   shell: |
-    apt update
+    sudo apt update
 
 - name: "Install node" 
-  become: yes
+  # become: yes
   shell: |
-    apt-get install nodejs -y
-    apt-get install npm -y
+    sudo apt-get install nodejs -y
+    sudo apt-get install npm -y
 
 - name: "Install pm2"
-  become: yes
+  # become: yes
   shell: |
     npm install -g pm2
