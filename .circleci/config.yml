@@ -221,7 +221,7 @@ jobs:
             - inventory-${CIRCLE_WORKFLOW_ID}
       # Add ssh keys with fingerprint
       - add_ssh_keys:
-          fingerprints: ["02:e0:13:58:26:1c:1f:9a:ae:39:71:17:8d:45:03:47"]
+          fingerprints: ["2f:f3:db:c5:ba:99:4c:a0:07:de:5f:a7:99:8d:78:b8:f7:05:d8:e3"]
       # attach workspace
       - run:
           name: Install dependencies
