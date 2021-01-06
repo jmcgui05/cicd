@@ -22,15 +22,5 @@
     TYPEORM_DATABASE: "{{ lookup('env','TYPEORM_DATABASE') }}"
   gather_facts: true
   
-
-#
-# Removing this step as its not needed for now
-#
-  # pre_tasks:
-# - name: "wait 60 seconds then move on"
-#   wait_for:
-#     timeout: 60
-
   roles:
-    # Your code here
     - configure-server-dependencies
