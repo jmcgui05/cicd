@@ -243,9 +243,13 @@ jobs:
       - run:
           name: Run migrations
           command: |
+            echo "I might need to explicitly setup env vars here"
+            echo printenv
+            printenv >> ./backend/.env
             cd backend
             npm run migrations > migrationOutput.txt
             cat migrationOutput.txt
+          no_output_timeout: 15m
       - run:
           name: Send migration results to memstash
           command: |
