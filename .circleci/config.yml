@@ -181,30 +181,28 @@ jobs:
               --stack-name udacity-frontend-${CIRCLE_WORKFLOW_ID} \
               --parameter-overrides ID=${CIRCLE_WORKFLOW_ID}
       - run:
-          name: Add back-end ip to ansible inventory
+          name: Add back-end ip to ansible inventory, this time use memstash
           command: |
-            cd .circleci/ansible/
-            aws ec2 describe-instances \
+            INSTANCE_IP=$(aws ec2 describe-instances \
             --filters 'Name=tag:Name,Values=backend-*' \
-            --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --region us-west-2 --output text >> inventory.txt
+            --query "Reservations[*].Instances[*].PublicIpAddress" \
+            --output text)
 
-            echo "check inv file"
-            cat inventory.txt
-      - persist_to_workspace:
-          root: ansible
-          paths:
-            - inventory.txt
-      # - save_cache:
-      #     paths: 
-      #       - .circleci/ansible/inventory.txt
-      #     key: inventory-${CIRCLE_WORKFLOW_ID}
+            echo ${INSTANCE_IP}
+            curl -H "Content-Type: text/plain" \
+               -H "token: ${CIRCLE_WORKFLOW_ID}" \
+               --request PUT \
+               --data ${INSTANCE_IP} \
+               https://api.memstash.io/values/instance_ip
 
-      # - persist_to_workspace: # tar utility is not present in this image but it is required. Please install it to have workflow workspace capability.
-      #     root: ~/
-      #     paths:
-      #       - project/.circleci/ansible/inventory.txt
-      # Here's where you will add some code to rollback on failure  
+            # cd .circleci/ansible/
+            # aws ec2 describe-instances \
+            # --filters 'Name=tag:Name,Values=backend-*' \
+            # --query 'Reservations[*].Instances[*].PublicIpAddress' \
+            # --region us-west-2 --output text >> inventory.txt
+
+            # echo "check inv file"
+            # cat inventory.txt
       - destroy-environment     
 
   configure-infrastructure:
@@ -215,12 +213,6 @@ jobs:
       # - restore_cache:
       #     keys: 
       #       - inventory-${CIRCLE_WORKFLOW_ID}
-      - run:
-          name: Install tar
-          command: |
-            yum -y install tar
-      - attach_workspace:
-          at: /tmp/ansible
       - add_ssh_keys:
           fingerprints: ["2f:f3:db:c5:ba:99:4c:a0:07:de:5f:a7:99:8d:78:b8:f7:05:d8:e3"]
       - run:
@@ -234,7 +226,11 @@ jobs:
       - run:
           name: Configure server
           command: |
+            INSTANCE_IP=$(curl -H "token: ${CIRCLE_WORKFLOW_ID}" --request GET https://api.memstash.io/values/instance_ip)
+            echo ${INSTANCE_IP}
             cd .circleci/ansible/
+            echo ${INSTANCE_IP} >> ./inventory
+            cat ./inventory
             ansible-playbook -i ./inventory.txt configure-server.yml
       - destroy-environment      
 
