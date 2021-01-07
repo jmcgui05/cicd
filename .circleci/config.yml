@@ -160,9 +160,10 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-      - restore_cache:
-          keys: 
-            - inventory-${CIRCLE_WORKFLOW_ID}
+      # - restore_cache:
+      #     keys: 
+      #       - inventory-${CIRCLE_WORKFLOW_ID}
+
       - run:
           name: Ensure back-end infrastructure exists
           command: |
@@ -190,10 +191,14 @@ jobs:
 
             echo "check inv file"
             cat inventory.txt
-      - save_cache:
-          paths: 
-            - .circleci/ansible/inventory.txt
-          key: inventory-${CIRCLE_WORKFLOW_ID}
+      - persist_to_workspace:
+          root: ansible
+          paths:
+            - inventory.txt
+      # - save_cache:
+      #     paths: 
+      #       - .circleci/ansible/inventory.txt
+      #     key: inventory-${CIRCLE_WORKFLOW_ID}
 
       # - persist_to_workspace: # tar utility is not present in this image but it is required. Please install it to have workflow workspace capability.
       #     root: ~/
@@ -207,11 +212,17 @@ jobs:
       - image: python:3.7-alpine3.11
     steps:
       - checkout
-      - restore_cache:
-          keys: 
-            - inventory-${CIRCLE_WORKFLOW_ID}
+      # - restore_cache:
+      #     keys: 
+      #       - inventory-${CIRCLE_WORKFLOW_ID}
+      - attach_workspace:
+          at: /tmp/ansible
       - add_ssh_keys:
           fingerprints: ["2f:f3:db:c5:ba:99:4c:a0:07:de:5f:a7:99:8d:78:b8:f7:05:d8:e3"]
+      - run:
+          name: cat inv file
+          command: |
+            cat /tmp/ansible/inventory.txt
       - run:
           name: Install dependencies
           command: |
