@@ -215,6 +215,10 @@ jobs:
       # - restore_cache:
       #     keys: 
       #       - inventory-${CIRCLE_WORKFLOW_ID}
+      - run:
+          name: Install tar
+          command: |
+            sudo apt-get install tar
       - attach_workspace:
           at: /tmp/ansible
       - add_ssh_keys:
