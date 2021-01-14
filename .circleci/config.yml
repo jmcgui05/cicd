@@ -270,14 +270,15 @@ jobs:
 
   deploy-frontend:
     docker:
-      - image: amazon/aws-cli
+      - image: python:3.7-alpine3.11
     steps:
       - checkout
       - run:
           name: Install dependencies
           command: |
-            sudo apt install nodejs
-            sudo apt install npm
+            apk add curl
+            apk add --update npm
+            pip3 install awscli
 
       - run:
           name: Get backend url
