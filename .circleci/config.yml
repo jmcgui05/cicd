@@ -273,9 +273,11 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-      # - run:
-      #     name: Install dependencies
-      #     command: |
+      - run:
+          name: Install dependencies
+          command: |
+            sudo apt install nodejs
+            sudo apt install npm
 
       - run:
           name: Get backend url
