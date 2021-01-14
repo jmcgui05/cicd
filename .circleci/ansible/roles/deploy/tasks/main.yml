@@ -9,9 +9,9 @@
     npm install
     npm run build
 
-- name: "run migrations"
-  shell: |
-    npm run migrations
+# - name: "run migrations"
+#   shell: |
+#     npm run migrations
 
 - name: "PM2 to run back-end server"
   shell: |
