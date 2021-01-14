@@ -1,0 +1,19 @@
+- name: "Get project/backend files from circleci server to local"
+  copy:
+    src: /root/project/backend
+    dest: /home/ubuntu
+
+- name: "install and build app"
+  shell: |
+    cd /home/ubuntu/backend    
+    npm install
+    npm run build
+
+- name: "run migrations"
+  shell: |
+    npm run migrations
+
+- name: "PM2 to run back-end server"
+  shell: |
+    cd /home/ubuntu/backend
+    pm2 start npm -- run "start"

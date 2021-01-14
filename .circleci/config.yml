@@ -243,7 +243,6 @@ jobs:
       - run:
           name: Run migrations
           command: |
-            echo "I might need to explicitly setup env vars here"
             echo printenv
             printenv >> ./backend/.env
             cd backend
