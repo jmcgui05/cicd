@@ -288,10 +288,10 @@ jobs:
           command: |
             PUBLIC_IP=$(curl -H "token: ${CIRCLE_WORKFLOW_ID}" --request GET https://api.memstash.io/values/instance_ip)
             echo "this is the ip being pulled:"
-            echo ${PUBLIC_IP}
+            echo $PUBLIC_IP
             echo "here is the api_url being set:"
-            echo "https://${PUBLIC_IP}:3000"
-            export API_URL="https://${PUBLIC_IP}:3000"
+            echo "https://$PUBLIC_IP:3000"
+            export API_URL="https://$PUBLIC_IP:3000"
             cd frontend
             npm install
             npm run build

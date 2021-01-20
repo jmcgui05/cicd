@@ -1,1 +1,4 @@
 [URL01]: https://github.com/jmcgui05/cicd
+[URL02]: http://udapeople-aaf8279a-e376-48d5-bee1-71e51a1d4396.s3-website-us-west-2.amazonaws.com/
+[URL03]: http://udapeople-aaf8279a-e376-48d5-bee1-71e51a1d4396.s3-website-us-west-2.amazonaws.com/
+[URL04]: 
