@@ -323,7 +323,7 @@ jobs:
             echo ${INSTANCE_IP}
             cd .circleci/ansible/
             ls
-            echo ${INSTANCE_IP} >> ./inventory
+            echo ${INSTANCE_IP} >> ./inventory.txt
             cat ./inventory
             ansible-playbook -i ./inventory.txt deploy-backend.yml
       - destroy-environment  
