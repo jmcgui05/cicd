@@ -223,7 +223,7 @@ jobs:
           name: Install dependencies
           command: |
             apk add --update ansible
-            apk add --update npm
+            apk add --update nodejs nodejs-npm
             apk add curl
       - run:
           name: Configure server
