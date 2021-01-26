@@ -211,7 +211,7 @@ jobs:
 
   configure-infrastructure:
     docker:
-      - image: circleci/node:13.8.0
+      - image: python:3.7-alpine3.11
     steps:
       - checkout
       # - restore_cache:
@@ -222,10 +222,10 @@ jobs:
       - run:
           name: Install dependencies
           command: |
+            apk add --update ansible
+            apk add --update node
+            apk add --update pm2
             apk add curl
-            apk add ansible
-            # apk add --upgrade nodejs nodejs-npm
-            # apk add  --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.7/main/ nodejs=8.9.3-r1
       - run:
           name: Configure server
           command: |
