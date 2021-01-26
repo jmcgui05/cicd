@@ -225,6 +225,9 @@ jobs:
             apk add --update ansible
             apk add --update nodejs nodejs-npm
             apk add curl
+            echo $(nvm --version)
+            nvm install 8.10.0
+            echo $(nvm --version)
       - run:
           name: Configure server
           command: |
