@@ -222,11 +222,10 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk update
-            apk add --update nodejs
-            apk add --update ansible
-            apk add --update pm2
-            apk add curl
+            apk add --no-cache curl
+            apk add --no-cache --upgrade bash
+            apk add --no-cache --update ansible
+            apk add --no-cache openssh-client
       - run:
           name: Configure server
           command: |
