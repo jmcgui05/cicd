@@ -223,7 +223,8 @@ jobs:
           name: Install dependencies
           command: |
             apk add --update ansible
-            apk add --update nodejs nodejs-npm
+            apk add --upgrade nodejs nodejs-npm
+            apk add  --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.7/main/ nodejs=8.9.3-r1
       - run:
           name: Configure server
           command: |
