@@ -228,6 +228,7 @@ jobs:
             apk add bash
             touch ~/.bash_profile
             curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.1/install.sh | bash
+            export NVM_DIR="$HOME/.nvm"
             echo $(nvm --version)
             nvm install 8.10.0
             echo $(nvm --version)
