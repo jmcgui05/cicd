@@ -211,7 +211,7 @@ jobs:
 
   configure-infrastructure:
     docker:
-      - image: python:3.7-alpine3.13.0
+      - image: python:3.7-alpine3.11
     steps:
       - checkout
       # - restore_cache:
@@ -222,6 +222,8 @@ jobs:
       - run:
           name: Install dependencies
           command: |
+            apk update
+            apk add --update nodejs
             apk add --update ansible
             apk add --update pm2
             apk add curl
