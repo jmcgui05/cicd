@@ -235,6 +235,7 @@ jobs:
             ls
             echo ${INSTANCE_IP} >> ./inventory.txt
             cat ./inventory.txt
+            export ANSIBLE_HOST_KEY_CHECKING=False
             ansible-playbook -i ./inventory.txt configure-server.yml
       - destroy-environment      
 
