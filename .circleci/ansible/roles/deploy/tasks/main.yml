@@ -1,5 +1,4 @@
 - name: "Get project/backend files from circleci server to local"
-  no_output_timeout: 15m
   ansible.builtin.copy:
     src: /root/project/backend
     dest: /home/ubuntu
