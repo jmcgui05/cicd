@@ -1,8 +1,12 @@
-- name: "change directories to backend"
+- name: "CD to dir"
   become: true
-  command: cd backend
+  command: cd /root/project/backend
 
-- name: "NPM Install"
+- name: "LS backend"
+  become: true
+  command: ls
+
+- name: "NPM install"
   become: true
   command: npm install
 
@@ -10,15 +14,19 @@
   become: true
   command: npm run build
 
+- name: "LS to verify the dist"
+  become: true
+  command: ls
+
 - name: "Get project/backend files from circleci server to local"
   become: true
   copy:
-    src: ./dist
-    dest: /home/ubuntu/backend
+    src: /root/project/backend/dist
+    dest: /home/ubuntu/backend/
 
-# - name: "cd to backend dir"
-#   become: true
-#   command: cd /home/ubuntu/backend    
+- name: "cd to backend dir"
+  become: true
+  command: cd /home/ubuntu/backend    
 
 # - name: "run npm install"
 #   become: true
