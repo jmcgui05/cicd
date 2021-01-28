@@ -1,19 +1,17 @@
 - name: "Get project/backend files from circleci server to local"
-  copy:
+  become: true
+  ansible.builtin.copy:
     src: /root/project/backend
     dest: /home/ubuntu
 
-- name: "install and build app"
-  shell: |
-    cd /home/ubuntu/backend    
-    npm install
-    npm run build
+- name: "cd to backend dir"
+  command: cd /home/ubuntu/backend    
 
-# - name: "run migrations"
-#   shell: |
-#     npm run migrations
+- name: "run npm install"
+  command: npm install
+    
+- name: "run npm run build"
+  command: npm run build
 
 - name: "PM2 to run back-end server"
-  shell: |
-    cd /home/ubuntu/backend
-    pm2 start npm -- run "start"
+  command: pm2 start npm -- run "start"
