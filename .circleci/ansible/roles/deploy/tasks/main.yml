@@ -1,6 +1,6 @@
 - name: "Ls the root"
   become: true
-  command: ls /root/project/backend
+  command: ls /
 
 - name: "Ls home ubuntu"
   become: true
