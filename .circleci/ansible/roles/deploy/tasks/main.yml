@@ -1,5 +1,11 @@
+- name: "Ls the root"
+  command: ls /root/project/backend
+
+- name: "Ls home ubuntu"
+  command: ls /home/ubuntu
+
 - name: "Get project/backend files from circleci server to local"
-  ansible.builtin.copy:
+  copy:
     src: /root/project/backend
     dest: /home/ubuntu
 
