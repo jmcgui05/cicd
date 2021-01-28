@@ -1,8 +1,8 @@
-- name: "Get project/backend files from circleci server to local"
-  become: true
-  ansible.builtin.copy:
-    src: /root/project/backend
-    dest: /home/ubuntu
+# - name: "Get project/backend files from circleci server to local"
+#   become: true
+#   ansible.builtin.copy:
+#     src: /root/project/backend
+#     dest: /home/ubuntu
 
 - name: "cd to backend dir"
   command: cd /home/ubuntu/backend    
