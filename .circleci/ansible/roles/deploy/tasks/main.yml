@@ -1,28 +1,32 @@
-- name: "Ls the root"
+- name: "change directories to backend"
   become: true
-  command: ls /
+  command: cd backend
 
-- name: "Ls home ubuntu"
+- name: "NPM Install"
   become: true
-  command: ls /home/ubuntu
+  command: npm install
+
+- name: "NPM Run Build"
+  become: true
+  command: npm run build
 
 - name: "Get project/backend files from circleci server to local"
   become: true
   copy:
-    src: /root/project/backend
-    dest: /home/ubuntu
+    src: ./dist
+    dest: /home/ubuntu/backend
 
-- name: "cd to backend dir"
-  become: true
-  command: cd /home/ubuntu/backend    
+# - name: "cd to backend dir"
+#   become: true
+#   command: cd /home/ubuntu/backend    
 
-- name: "run npm install"
-  become: true
-  command: npm install
+# - name: "run npm install"
+#   become: true
+#   command: npm install
     
-- name: "run npm run build"
-  become: true
-  command: npm run build
+# - name: "run npm run build"
+#   become: true
+#   command: npm run build
 
 - name: "PM2 to run back-end server"
   become: true
