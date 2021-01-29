@@ -1,7 +1,7 @@
 - name: "Get project/backend files from circleci server to local"
   become: true
   copy:
-    src: ~/project/backend/dist
+    src: ~/project/backend/
     dest: /home/ubuntu/backend/
 
 - name: "CD to dir"
