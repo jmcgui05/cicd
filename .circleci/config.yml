@@ -328,9 +328,10 @@ jobs:
             cd .circleci/ansible/
             echo ${INSTANCE_IP} >> ./inventory.txt
             cat ./inventory.txt
-            cd /root/project/
+            # cd /root/project/
             ls
             pwd
+            export ANSIBLE_HOST_KEY_CHECKING=False
             ansible-playbook -i ./inventory.txt deploy-backend.yml
       - destroy-environment  
       - revert-migrations  
