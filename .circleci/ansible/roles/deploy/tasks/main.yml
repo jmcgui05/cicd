@@ -1,3 +1,9 @@
+- name: "Get project/backend files from circleci server to local"
+  become: true
+  copy:
+    src: ~/project/backend/dist
+    dest: /home/ubuntu/backend/
+
 - name: "CD to dir"
   become: true
   command: cd ~/project/backend
@@ -18,11 +24,11 @@
   become: true
   command: ls
 
-- name: "Get project/backend files from circleci server to local"
-  become: true
-  copy:
-    src: ~/project/backend/dist
-    dest: /home/ubuntu/backend/
+# - name: "Get project/backend files from circleci server to local"
+#   become: true
+#   copy:
+#     src: ~/project/backend/dist
+#     dest: /home/ubuntu/backend/
 
 - name: "cd to backend dir"
   become: true
