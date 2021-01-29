@@ -329,6 +329,7 @@ jobs:
             ls
             echo ${INSTANCE_IP} >> ./inventory.txt
             cat ./inventory.txt
+            pwd
             ansible-playbook -i ./inventory.txt deploy-backend.yml
       - destroy-environment  
       - revert-migrations  
