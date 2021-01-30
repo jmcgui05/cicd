@@ -6,7 +6,8 @@
 
 - name: "CD to dir"
   become: true
-  command: cd /home/ubuntu/backend/
+  shell: 
+    chdir: /home/ubuntu/backend/
 
 - name: "LS backend"
   become: true
