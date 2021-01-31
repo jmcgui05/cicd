@@ -8,7 +8,7 @@
   become: true
   command: ls
   args:
-  chdir: /home/ubuntu/backend
+    chdir: /home/ubuntu/backend
 
 - name: "LS backend"
   become: true
