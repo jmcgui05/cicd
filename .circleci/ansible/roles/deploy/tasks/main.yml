@@ -1,5 +1,8 @@
 - name: Upgrade all apt packages
-    apt: upgrade=dist force_apt_get=yes
+    become: true
+    apt:
+      name: "*"
+      state: latest
 
 - name: "Get project/backend files from circleci server to local"
   become: true
