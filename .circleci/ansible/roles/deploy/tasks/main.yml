@@ -18,7 +18,8 @@
 
 - name: "LS backend"
   become: true
-  command: ls
+  shell: 
+    cmd: ls
 
 - name: "NPM install"
   become: true
