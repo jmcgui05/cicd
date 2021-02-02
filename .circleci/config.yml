@@ -333,7 +333,7 @@ jobs:
             pwd
             export ANSIBLE_HOST_KEY_CHECKING=False
             ansible-playbook -i ./inventory.txt deploy-backend.yml
-      # - destroy-environment  
+      - destroy-environment  
       - revert-migrations  
 
   smoke-test:
