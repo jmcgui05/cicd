@@ -20,34 +20,34 @@
     src: ~/project/backend/
     dest: /home/ubuntu
 
-- name: "CD to dir"
-  become: true
-  command: ls
-  args: 
-    chdir: /home/ubuntu/backend
+# - name: "CD to dir"
+#   become: true
+#   command: ls
+#   args: 
+#     chdir: /home/ubuntu/backend
 
-- name: "LS backend"
-  become: true
-  shell: 
-    cmd: ls
+# - name: "LS backend"
+#   become: true
+#   shell: 
+#     cmd: ls
 
 - name: "NPM install"
   become: true
   command: npm install
   args:
-    chdir: /home/ubuntu/backend
+    chdir: /home/ubuntu
 
 - name: "NPM Run Build"
   become: true
   command: npm run build
   args:
-    chdir: /home/ubuntu/backend
+    chdir: /home/ubuntu
 
 - name: "LS to verify the dist"
   become: true
   command: ls
   args:
-    chdir: /home/ubuntu/backend
+    chdir: /home/ubuntu
 
 # - name: "Get project/backend files from circleci server to local"
 #   become: true
@@ -71,4 +71,4 @@
   become: true
   command: pm2 start npm -- run "start"
   args:
-    chdir: /home/ubuntu/backend
+    chdir: /home/ubuntu
