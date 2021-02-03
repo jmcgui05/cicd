@@ -23,7 +23,7 @@
 
 - name: "NPM install"
   become: true
-  command: npm install
+  command: npm update
   args:
     chdir: /home/ubuntu/backend
 
