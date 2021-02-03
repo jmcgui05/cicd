@@ -7,7 +7,7 @@
   become: true
   apt:
     upgrade: "yes"
-    
+
 - name: "install dependencies."
   become: true
   apt:
@@ -33,7 +33,7 @@
 
 - name: "NPM install"
   become: true
-  command: npm update
+  command: npm install
   args:
     chdir: /home/ubuntu/backend
 
