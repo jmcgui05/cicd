@@ -32,13 +32,13 @@
 #     cmd: ls
 
 - name: "NPM install"
-  become: true
+  # become: true
   command: npm install
   args:
     chdir: /home/ubuntu
 
 - name: "NPM Run Build"
-  become: true
+  # become: true
   command: npm run build
   args:
     chdir: /home/ubuntu
