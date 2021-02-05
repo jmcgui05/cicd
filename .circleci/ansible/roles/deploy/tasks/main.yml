@@ -31,6 +31,9 @@
 #   shell: 
 #     cmd: ls
 
+- name: make sure the latest npm is installed
+  command: npm install -g npm
+
 - name: "NPM install"
   # become: true
   command: npm install
