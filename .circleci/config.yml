@@ -338,7 +338,7 @@ jobs:
           command: |
             printenv >> ./backend/.env
             cd .circleci/ansible/
-            ansible-playbook -i ./inventory.text deploy-backend.yml
+            ansible-playbook -i ./inventory.txt deploy-backend.yml
       # - destroy-environment  
       - revert-migrations  
 
