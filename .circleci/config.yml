@@ -293,8 +293,8 @@ jobs:
             echo "this is the ip being pulled:"
             echo $PUBLIC_IP
             echo "here is the api_url being set:"
-            echo "https://$PUBLIC_IP:3030"
-            export API_URL="https://$PUBLIC_IP:3030"
+            echo "http://$PUBLIC_IP:3030"
+            export API_URL="http://$PUBLIC_IP:3030"
             cd frontend
             npm install
             npm run build
@@ -357,7 +357,7 @@ jobs:
           name: Get backend url
           command: |
             PUBLIC_IP=$(curl -H "token: ${CIRCLE_WORKFLOW_ID}" --request GET https://api.memstash.io/values/instance_ip)
-            export API_URL="https://${PUBLIC_IP}:3030/api/status"
+            export API_URL="http://${PUBLIC_IP}:3030/api/status"
       - run:
           name: Backend smoke test.
           command: |
@@ -365,17 +365,17 @@ jobs:
             then
               return 0
             else
-              return 0
+              return 1
             fi
       - run:
           name: Frontend smoke test.
           command: |
-            FRONTEND_URL="http://udapeople-${CIRCLE_WORKFLOW_ID}.s3-website.us-east-2.amazonaws.com/#/"
+            FRONTEND_URL="http://udapeople-${CIRCLE_WORKFLOW_ID}.s3-website.us-east-2.amazonaws.com/#/employees"
             if curl -s ${FRONTEND_URL} | grep "Welcome"
             then
               return 0
             else
-              return 0
+              return 1
             fi
       - destroy-environment  
       - revert-migrations
