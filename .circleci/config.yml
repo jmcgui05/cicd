@@ -376,11 +376,13 @@ jobs:
             FRONTEND_URL="http://udapeople-${CIRCLE_WORKFLOW_ID}.s3-website.us-east-2.amazonaws.com/#/index.html"
             if curl -s ${FRONTEND_URL} | grep "Welcome"
             then
+              echo ${FRONTEND_URL}
               return 0
             else
+              echo ${FRONTEND_URL}
               return 1
             fi
-      # - destroy-environment  
+      - destroy-environment  
       - revert-migrations
 
   cloudfront-update:
