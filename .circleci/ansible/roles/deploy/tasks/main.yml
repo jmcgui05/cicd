@@ -3,22 +3,22 @@
 #   apt:
 #     name: "*"
 #     state: latest
-- name: "upgrade packages."
-  become: true
-  apt:
-    upgrade: "yes"
+# - name: "upgrade packages."
+#   become: true
+#   apt:
+#     upgrade: "yes"
 
-- name: "install dependencies."
-  become: true
-  apt:
-    name: ["nodejs", "npm"]
-    update_cache: yes
+# - name: "install dependencies."
+#   become: true
+#   apt:
+#     name: ["nodejs", "npm"]
+#     update_cache: yes
 
-- name: "Get project/backend files from circleci server to local"
-  become: true
-  copy:
-    src: ~/project/backend/
-    dest: /home/ubuntu
+# - name: "Get project/backend files from circleci server to local"
+#   become: true
+#   copy:
+#     src: ~/project/backend/
+#     dest: /home/ubuntu
 
 # - name: "CD to dir"
 #   become: true
@@ -31,27 +31,27 @@
 #   shell: 
 #     cmd: ls
 
-- name: make sure the latest npm is installed
-  become: true
-  command: npm install -g npm
+# - name: make sure the latest npm is installed
+#   become: true
+#   command: npm install -g npm
 
-- name: "NPM install"
+# - name: "NPM install"
+#   # become: true
+#   command: npm install
+#   args:
+#     chdir: /home/ubuntu
+
+# - name: "NPM Run Build"
   # become: true
-  command: npm install
-  args:
-    chdir: /home/ubuntu
+#   command: npm run build
+#   args:
+#     chdir: /home/ubuntu
 
-- name: "NPM Run Build"
-  # become: true
-  command: npm run build
-  args:
-    chdir: /home/ubuntu
-
-- name: "LS to verify the dist"
-  become: true
-  command: ls
-  args:
-    chdir: /home/ubuntu
+# - name: "LS to verify the dist"
+#   become: true
+#   command: ls
+#   args:
+#     chdir: /home/ubuntu
 
 # - name: "Get project/backend files from circleci server to local"
 #   become: true
@@ -71,8 +71,12 @@
 #   become: true
 #   command: npm run build
 
-- name: "PM2 to run back-end server"
-  become: true
-  command: pm2 start npm -- run "start"
-  args:
-    chdir: /home/ubuntu
+- name: "build package"
+  shell: |
+    cd /home/ubuntu/backend
+    npm run build
+
+- name: "use pm2 to run the node server"
+  shell: |
+    cd /home/ubuntu/backend
+    pm2 start npm -- run "start:dev"

@@ -334,7 +334,7 @@ jobs:
             # ansible-playbook -i ./inventory.txt deploy-backend.yml
       - run:
           name: Deploy via ansible
-          no_output_timeout: 15m
+          no_output_timeout: 20m
           command: |
             printenv >> ./backend/.env
             cd .circleci/ansible/
