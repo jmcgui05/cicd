@@ -362,12 +362,15 @@ jobs:
           name: Backend smoke test.
           command: |
             TESTCURL=$(curl -s "${API_URL}")
-            echo ${API_URL}
-            echo ${TESTCURL}
+
             if curl -s "${API_URL}" | grep "ok"
             then
+              echo ${API_URL}
+              echo ${TESTCURL}
               return 0
             else
+              echo ${API_URL}
+              echo ${TESTCURL}
               return 1
             fi
       - run:
