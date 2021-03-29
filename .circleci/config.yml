@@ -397,6 +397,7 @@ jobs:
             OldWorkflowId=$(aws cloudformation list-exports --query "Exports[?Name=='WorkflowID'].Value" --output text)
             STACKS=$(aws cloudformation list-stacks --query "StackSummaries[*].StackName" --stack-status-filter CREATE_COMPLETE --output text)
             echo OldWorkflowId: ${OldWorkflowId}
+            echo NewWorkflowId: ${CIRCLE_WORKFLOW_ID}
             echo STACKS: ${STACKS}
             echo Update CloudFront
             aws cloudformation deploy \
@@ -406,7 +407,7 @@ jobs:
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID}"
 
             echo Delete old stacks/resources
-            if [[ "${STACKS[@]}" =~ "${OldWorkflowId}" ]]
+            if [ -n "${OldWorkflowId}" ] && [[ "${STACKS[@]}" =~ "${OldWorkflowId}" ]]
             then
               # Delete files from bucket
               aws s3 rm s3://udapeople-${OldWorkflowId}/ --recursive
