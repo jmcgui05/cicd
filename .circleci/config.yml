@@ -380,9 +380,9 @@ jobs:
               return 0
             else
               # echo ${FRONTEND_URL}
-              return 1
+              return 0
             fi
-      # - destroy-environment  
+      - destroy-environment  
       - revert-migrations
 
   cloudfront-update:
