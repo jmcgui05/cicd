@@ -1,4 +1,5 @@
 [URL01]: https://github.com/jmcgui05/cicd
-[URL02]: http://udapeople-31d4e395-2653-4b22-8c37-6281cdce4c22.s3-website-us-west-2.amazonaws.com/
+[URL02]: http://udapeople-00721651-592c-497a-98be-e6692abbff3a.s3-website-us-west-2.amazonaws.com/#/employees
 [URL03]: d2x1gauhepdz0q.cloudfront.net
-[URL04]: http://54.244.202.177:3030/api/status
+[URL04]: http://52.24.190.196:3030/api/status
+[URL05]: http://ec2-54-185-56-98.us-west-2.compute.amazonaws.com:9090/targets
